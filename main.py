@@ -114,6 +114,9 @@ def mostrar_menu():
     print("5. Salir")
 
 
+
+
+
 def main():
     encabezados, filas = cargar_dataset(ARCHIVO)
     print(f"Dataset cargado: {len(filas)} registros, {len(encabezados)} columnas.")
