@@ -95,6 +95,7 @@ def agrupar_por(encabezados, filas, campo):
 
 
 def elegir_campo(opciones, mensaje):
+"""Muestra una lista de opciones al usuario y retorna la opción seleccionada si es válida."""
     print(mensaje)
     for i in range(len(opciones)):
         print(f"  {i + 1}. {opciones[i]}")
