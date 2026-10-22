@@ -61,7 +61,7 @@ def estadisticas(encabezados, filas, campo):
     if cantidad == 0:
         return None, None, None
     return maximo, minimo, suma / cantidad
-
+    
 
 def filtrar_mayor_que(encabezados, filas, campo, umbral):
     indice = encabezados.index(campo)
