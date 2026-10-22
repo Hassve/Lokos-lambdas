@@ -95,25 +95,28 @@ def agrupar_por(encabezados, filas, campo):
 
 
 def elegir_campo(opciones, mensaje):
-"""Muestra una lista de opciones al usuario y retorna la opción seleccionada si es válida."""
+    """Muestra una lista de opciones al usuario y retorna la opción seleccionada si es válida."""
     print(mensaje)
     for i in range(len(opciones)):
         print(f"  {i + 1}. {opciones[i]}")
-    eleccion = input("Opción: ").strip()
+    eleccion = input("Ingresa el número de opción: ").strip()
     if eleccion.isdigit() and 1 <= int(eleccion) <= len(opciones):
         return opciones[int(eleccion) - 1]
-    print("Opción no válida.")
+    print("Opción no válida. Inténtalo de nuevo.")
     return None
 
 
 def mostrar_menu():
-    print("\n===== DataLab - Pingüinos de Palmer =====")
-    print("1. Buscar un término")
-    print("2. Estadísticas básicas de un campo numérico")
-    print("3. Filtrar registros por valor mínimo (opcional)")
-    print("4. Agrupar por categoría (opcional)")
-    print("5. Salir")
-
+    """Muestra el menú principal de opciones de DataLab."""
+    print("\n==========================================")
+    print("     DataLab - Pingüinos de Palmer        ")
+    print("==========================================")
+    print("  1. Buscar un término")
+    print("  2. Estadísticas básicas de un campo numérico")
+    print("  3. Filtrar registros por valor mínimo (opcional)")
+    print("  4. Agrupar por categoría (opcional)")
+    print("  5. Salir")
+    print("==========================================")
 
 
 
