@@ -103,3 +103,93 @@ def opcion_agrupar(encabezados, filas):
         print(" · ".join(partes))
 
 
+def opcion_comparar(encabezados, filas):
+    campo_texto = elegir_campo(analisis.CAMPOS_TEXTO, "¿Qué campo de texto comparar?")
+    if not campo_texto:
+        return
+    unicos = analisis.valores_unicos(encabezados, filas, campo_texto)
+    print("Valores disponibles: " + ", ".join(unicos))
+    a = input("Primer valor: ").strip()
+    b = input("Segundo valor: ").strip()
+    if a.lower() not in [u.lower() for u in unicos] or b.lower() not in [u.lower() for u in unicos]:
+        print("Alguno de los valores no existe en ese campo.")
+        return
+    campo_num = elegir_campo(analisis.CAMPOS_NUMERICOS, "¿Qué campo numérico usar?")
+    if not campo_num:
+        return
+    res = analisis.comparar_grupos(encabezados, filas, campo_texto, a, b, campo_num)
+    for valor, datos in res.items():
+        print(f"{valor}: {datos['cantidad']} registros · "
+              f"Máx: {datos['maximo']} · Mín: {datos['minimo']} · "
+              f"Promedio: {datos['promedio']:.1f}")
+
+
+def opcion_historial():
+    entradas = archivos.leer_historial()
+    if not entradas:
+        print("Aún no hay consultas en el historial.")
+        return
+    for fecha, consulta, cantidad in entradas:
+        print(f"{fecha}, {consulta}, {cantidad} resultados")
+
+
+def opcion_cargar_resultado():
+    guardados = archivos.listar_resultados()
+    if not guardados:
+        print("No hay resultados guardados todavía.")
+        return
+    ruta = elegir_campo(guardados, "¿Qué resultado quieres cargar?")
+    if ruta:
+        enc, filas = archivos.cargar_csv(ruta)
+        mostrar_registros(enc, filas)
+
+
+def opcion_resumen():
+    try:
+        resumen = archivos.cargar_json(archivos.ARCHIVO_RESUMEN)
+    except FileNotFoundError:
+        print("No se encontró resumen.json.")
+        return
+    print(f"Total de registros: {resumen['total_registros']}")
+    for campo, n in resumen["valores_unicos"].items():
+        print(f"  {campo}: {n} valores distintos")
+    for campo, d in resumen["numericos"].items():
+        print(f"  {campo}: máx {d['maximo']} · mín {d['minimo']} · prom {d['promedio']}")
+
+
+def main():
+    encabezados, filas = archivos.cargar_csv(ARCHIVO_DATOS)
+    print(f"Dataset cargado: {len(filas)} registros, {len(encabezados)} columnas.")
+    archivos.guardar_json(archivos.ARCHIVO_RESUMEN, analisis.generar_resumen(encabezados, filas))
+
+    while True:
+        mostrar_menu()
+        opcion = input("Elige una opción: ").strip()
+        if opcion == "1":
+            opcion_buscar(encabezados, filas)
+        elif opcion == "2":
+            opcion_estadisticas(encabezados, filas)
+        elif opcion == "3":
+            opcion_filtrar(encabezados, filas)
+        elif opcion == "4":
+            opcion_agrupar(encabezados, filas)
+        elif opcion == "5":
+            opcion_comparar(encabezados, filas)
+        elif opcion == "6":
+            opcion_historial()
+        elif opcion == "7":
+            opcion_cargar_resultado()
+        elif opcion == "8":
+            opcion_resumen()
+        elif opcion == "9":
+            print("¡Hasta pronto!")
+            break
+        else:
+            print("Opción no válida, intenta de nuevo.")
+
+
+if __name__ == "__main__":
+    main()
+
+
+
