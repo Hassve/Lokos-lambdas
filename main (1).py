@@ -1,4 +1,33 @@
+"""main.py - Menú interactivo de DataLab (Entrega 2). Solo interfaz de consola."""
+import analisis
+import archivos
 
+ARCHIVO_DATOS = "pinguinos_completo.csv"
+
+
+def mostrar_registro(encabezados, fila, numero):
+    partes = []
+    for i in range(len(encabezados)):
+        partes.append(encabezados[i] + "=" + fila[i])
+    print(f"{numero:>3}. " + " | ".join(partes))
+
+
+def mostrar_registros(encabezados, filas):
+    for i in range(len(filas)):
+        mostrar_registro(encabezados, filas[i], i + 1)
+    print(f"Se encontraron {len(filas)} registros.")
+
+
+def elegir_campo(opciones, mensaje):
+    """Muestra opciones numeradas y retorna la elegida (o None si no es válida)."""
+    print(mensaje)
+    for i in range(len(opciones)):
+        print(f"  {i + 1}. {opciones[i]}")
+    eleccion = input("Ingresa el número de opción: ").strip()
+    if eleccion.isdigit() and 1 <= int(eleccion) <= len(opciones):
+        return opciones[int(eleccion) - 1]
+    print("Opción no válida.")
+    return None
 
 
 def mostrar_menu():
