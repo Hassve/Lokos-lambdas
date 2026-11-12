@@ -64,32 +64,4 @@ def guardar_resultado(nombre, encabezados, filas):
     return ruta
 
 
-def listar_resultados():
-    """Retorna la lista (ordenada) de archivos de resultados guardados."""
-    archivos = []
-    for nombre in os.listdir("."):
-        if nombre.startswith(PREFIJO_RESULTADO) and nombre.endswith(".csv"):
-            archivos.append(nombre)
-    archivos.sort()
-    return archivos
 
-
-# ---------- Historial ----------
-
-def registrar_historial(consulta, cantidad, ruta=ARCHIVO_HISTORIAL):
-    """Agrega una línea (fecha y hora, consulta, número de resultados) al historial."""
-    es_nuevo = not os.path.exists(ruta)
-    with open(ruta, "a", encoding="utf-8", newline="") as archivo:
-        escritor = csv.writer(archivo)
-        if es_nuevo:
-            escritor.writerow(["fecha", "consulta", "resultados"])
-        ahora = datetime.now().strftime("%Y-%m-%d %H:%M")
-        escritor.writerow([ahora, consulta, cantidad])
-
-
-def leer_historial(ruta=ARCHIVO_HISTORIAL):
-    """Retorna las entradas del historial (sin encabezado). Lista vacía si no existe."""
-    if not os.path.exists(ruta):
-        return []
-    _, filas = cargar_csv(ruta)
-    return filas
