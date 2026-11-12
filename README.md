@@ -1,141 +1,63 @@
-[README.md](https://github.com/user-attachments/files/33794012/README.md)
-**Datalab Análisis exploratorio de datos de pingüinos**
+# DataLab – Análisis exploratorio de pingüinos de Palmer (Entrega 2: Analizador)
 
-**Descripción:**
+**Grupo:** LokosLambda · **Curso:** Programación de Computadores 2026-2 · Universidad Nacional de Colombia
 
-Por medio de este Datalab se ejecuta un programa en python que permite analizar una tabla de datos relacionado a los pingüinos del archipiélago de  Palmer
+## Descripción
+Programa de consola en Python para explorar datos reales de pingüinos del archipiélago de Palmer (especie, isla, medidas de pico, aleta, masa y sexo). En esta entrega el programa carga el dataset completo con el módulo `csv`, organiza los datos en listas, diccionarios y conjuntos, **guarda y recupera resultados** y **registra un historial** de consultas.
 
-El programa hace usa de un archico csv con la informacion de los pingúinos, respecto a su especie, isla, medidas de pico, longitud de aletas su masa y sexo
+## Preguntas que queremos responder
+- ¿Qué especie es más pesada y cuánto difiere de las otras?
+- ¿Cómo cambian las medidas entre machos y hembras?
+- ¿Qué isla concentra más registros de cada especie?
 
-Dentro encontraras un menu interactivo donde se podrá realizar búsquedas, obtener estadísticas descriptivas, filtrar registros y agrupar la información por categorías
+## Datos
+- `pinguinos_completo.csv`: 333 registros, 7 columnas (se usa desde la Entrega 2).
+- `pinguino_pequeno.csv`: subconjunto de 50 registros (Entrega 1).
 
-**Objetivos y preguntas a responder con el programa**   
-Implementar funciones para procesar y analizar datos, leer y organizar la información, aplicar operaciones sobre datos numéricos y de clasificación, permitir la búsqueda y el filtrado de registros según criterios del usuario.
+Columnas: `especie`, `isla`, `longitud_pico_mm`, `profundidad_pico_mm`, `longitud_aleta_mm`, `masa_corporal_g`, `sexo`.
 
-Dentro del programa utilizamos Python 3 como lenguaje principal, dataset en formato CSV formato y la terminal como interfaz de interacción con el usuario.
-
-El programa utiliza las funcionalidades básicas de Python y no requiere bibliotecas externas para las operaciones
-
-**Datos**
-
-El programa utiliza el archivo *`pinguinos_pequeno.csv`*, que contiene 50 registros y 7 columnas.
-
-Las variables incluidas en el conjunto de datos son:
-
-Especie: Especie del pingüino.
-
-Isla: Isla asociada al registro.
-
-Longitud\_pico\_mm: Longitud del pico en milímetros.
-
-Profundidad\_pico\_mm : Profundidad del pico en milímetros. 
-
-Longitud\_aleta\_mm : Longitud de la aleta en milímetros. 
-
-Masa\_corporal\_g: Masa corporal en gramos. 
-
-Sexo: Sexo registrado del pingüino.
-
-**Funciones:**
-
-El programa ofrece un menú interactivo con las siguientes opciones:
-
-**1\. Buscar un término**
-
-Permite buscar un texto dentro de los campos de los registros.
-
-La búsqueda funciona independientemente de si el texto está en mayúsculas o minúsculas, por lo que es posible encontrar coincidencias sin importar cómo se escriba el término.
-
-Los registros encontrados se muestran en la terminal.
-
-**2\. Cálculos estadísticos**
-
-Se selecciona una variable numérica y se obtienen tres medidas descriptivas:
-
-Máximo: valor más alto del campo seleccionado
-
-Mínimo: valor más bajo del campo seleccionado
-
-Promedio: media aritmética de los valores seleccionados
-
-Las variables numéricas disponibles son la longitud del pico, la profundidad del pico, la longitud de la aleta y la masa corporal.
-
-**3\. Filtrar registros**
-
-Permite seleccionar un campo numérico e introducir un umbral/límite
-
-El programa muestra los registros cuyo valor en el campo seleccionado sea estrictamente mayor que el umbral indicado.
-
-Si el usuario introduce un valor que no es numérico, el programa muestra un mensaje de error y lo devuelve al menú.
-
-**4\. Agrupar por categoría**
-
-Permite agrupar los registros según una variable categórica.
-
-Las opciones disponibles son especie, isla y sexo.
-
-El programa cuenta cuántos registros corresponden a cada categoría y presenta los resultados ordenados de mayor a menor frecuencia.
-
-**5\. Salir**
-
-Finaliza la ejecución del programa.
-
-**Estructura**
-
-Los archivos deben estar organizados de la siguiente manera:
-
-DataLab-Pinguinos/  
-├── main.py  
-├── pinguinos\_pequeno.csv  
+## Estructura
+```
+DataLab-Pinguinos/
+├── main.py                  ← solo el menú interactivo
+├── analisis.py              ← búsqueda, estadísticas, filtro, agrupación, comparación y resumen
+├── archivos.py              ← lectura/escritura CSV y JSON, historial y resultados guardados
+├── pinguinos_completo.csv
+├── pinguino_pequeno.csv
+├── historial.csv            ← se genera solo al hacer consultas
+├── resumen.json             ← se genera solo al iniciar
+├── resultado_<nombre>.csv   ← se generan cuando el usuario guarda resultados
 └── README.md
+```
 
-* `main.py`: contiene el código fuente y las funciones del programa.  
-* `pinguinos_pequeno.csv`: contiene los datos utilizados para el análisis.  
-* `README.md`: documenta el proyecto y explica cómo utilizarlo.
+## Cómo ejecutar
+1. Instala Python 3 (no se necesitan librerías externas).
+2. Descarga o clona el repositorio y deja todos los archivos en la misma carpeta.
+3. En una terminal, dentro de la carpeta: `python3 main.py` (o `python main.py`).
 
-**Instalación y ejecución**
+## Menú
+| Opción | Qué hace |
+|---|---|
+| 1. Buscar un término | Muestra los registros que lo contienen y cuántos hay. Se anota en el historial y ofrece guardar. |
+| 2. Estadísticas básicas | Máximo, mínimo y promedio de un campo numérico. |
+| 3. Filtrar por valor mínimo | Registros con un campo numérico mayor a un valor. Se anota en el historial y ofrece guardar. |
+| 4. Agrupar por categoría | Conteo por especie, isla o sexo, de mayor a menor. |
+| 5. Comparar dos grupos *(opcional)* | Cantidad, máximo, mínimo y promedio de dos valores de un campo de texto. |
+| 6. Ver historial | Muestra `historial.csv`: fecha y hora, consulta y número de resultados. |
+| 7. Cargar resultado guardado | Recupera un `resultado_<nombre>.csv` de una sesión anterior sin reprocesar. |
+| 8. Ver resumen *(opcional)* | Muestra `resumen.json`, generado automáticamente al iniciar. |
+| 9. Salir | Termina el programa. |
 
-**Primero**
+## Estructuras de datos y para qué se usan
+- **Lista de listas:** cada fila del dataset, conserva el orden original.
+- **Diccionario:** conteos por categoría, resultados de comparaciones y el resumen (se accede por nombre).
+- **Conjunto (`set`):** valores únicos de un campo, sin repetidos.
 
-* Tener Python 3 instalado.  
-* Descargar o disponer de los archivos del proyecto.  
-* Contar con una terminal o un editor de código que permita ejecutar Python.
+## Archivos y módulos
+- `archivos.py`: `cargar_csv`, `guardar_csv`, `cargar_json`, `guardar_json`, `guardar_resultado`, `listar_resultados`, `registrar_historial`, `leer_historial`.
+- `analisis.py`: `buscar`, `estadisticas`, `filtrar_mayor_que`, `agrupar_por`, `valores_unicos`, `comparar_grupos`, `generar_resumen`.
+- `main.py`: menú y funciones de interacción; no contiene lógica de análisis.
 
-**Para ejecutar**
-
-1. Descarga o clona el repositorio.  
-2. Asegúrate de que el archivo CSV se encuentre en la misma carpeta que `main.py`.  
-3. Abre una terminal en la carpeta del proyecto.  
-4. Ejecuta el siguiente comando:
-
-python3 main.py o python main.py
-
-Al iniciar, el programa carga el conjunto de datos y muestra la cantidad de registros y columnas disponibles.
-
-Después, presenta el menú principal para que el usuario seleccione la operación que desea realizar.
-
-## 
-
-El programa está organizado mediante funciones, cada una encargada de una tarea específica.
-
-Entre las principales funciones se encuentran:
-
-| Función | Que hace |
-| ----- | ----- |
-| `cargar_dataset()` | Lee el archivo y separa los encabezados de los registros. |
-| `mostrar_registro()` | Presenta un registro con los nombres de sus campos. |
-| `buscar()` | Busca coincidencias de un término en los registros |
-| `estadisticas()` | Calcula el máximo, el mínimo y el promedio de un campo numérico. |
-| `filtrar_mayor_que()` | Selecciona los registros que superan un límite seleccionado |
-| `agrupar_por()` | Cuenta y ordena las categorías según su frecuencia. |
-| `elegir_campo()` | Permite seleccionar un campo desde el menu |
-| `mostrar_menu()` | Presenta las opciones disponibles. |
-| `main()` | Coordina la ejecución del programa y la interacción  |
-
-Esta organización modular permite separar las distintas operaciones y facilita la lectura y el mantenimiento del código.
-
-**Para tener en cuenta** 
-
-* El archivo CSV debe conservar los encabezados y el orden de las columnas esperados por el programa.  
-* Las operaciones estadísticas y de filtrado están diseñadas para campos numéricos   
-* El programa está diseñado para ejecutarse desde la terminal mediante un menú de texto.
+## Notas
+- Esta entrega usa solo `csv`, `json`, `os` y `datetime` de la biblioteca estándar (sin Pandas).
+- Los campos numéricos y de texto están definidos en `analisis.py` (`CAMPOS_NUMERICOS`, `CAMPOS_TEXTO`).
