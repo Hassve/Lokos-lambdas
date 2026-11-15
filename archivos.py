@@ -20,7 +20,6 @@ def cargar_csv(ruta):
                 filas.append(fila)
     return encabezados, filas
 
-
 def guardar_csv(ruta, encabezados, filas):
     """Escribe encabezados y filas en un CSV."""
     with open(ruta, "w", encoding="utf-8", newline="") as archivo:
@@ -62,6 +61,7 @@ def guardar_resultado(nombre, encabezados, filas):
     ruta = PREFIJO_RESULTADO + nombre + ".csv"
     guardar_csv(ruta, encabezados, filas)
     return ruta
+
 
 def listar_resultados():
     """Retorna la lista (ordenada) de archivos de resultados guardados."""
