@@ -53,6 +53,11 @@ def ofrecer_guardar(encabezados, filas):
     if input("¿Guardar estos resultados? (s/n): ").strip().lower() != "s":
         return
     nombre = input("Nombre para el archivo (ej. grandes): ")
+    # Aviso opcional antes de sobrescribir (requiere "import os" al inicio del archivo)
+    if os.path.exists(archivos.PREFIJO_RESULTADO + archivos.nombre_seguro(nombre) + ".csv"):
+        if input("Ya existe un archivo con ese nombre. ¿Sobrescribir? (s/n): ").strip().lower() != "s":
+            print("No se guardó.")
+            return
     ruta = archivos.guardar_resultado(nombre, encabezados, filas)
     if ruta is None:
         print("Nombre no válido, no se guardó.")
