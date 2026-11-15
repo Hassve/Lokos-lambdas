@@ -1,4 +1,5 @@
 """main.py - Menú interactivo de DataLab (Entrega 2). Solo interfaz de consola."""
+import os
 import analisis
 import archivos
 
